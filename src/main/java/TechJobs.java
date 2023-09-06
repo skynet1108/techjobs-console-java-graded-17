@@ -124,6 +124,7 @@ public class TechJobs {
             System.out.print("No Results");
         } else {
             for (HashMap<String, String> someJob : someJobs) {
+                System.out.println();
                 System.out.println("*****");
 
                 for (Map.Entry<String, String> mapElement : someJob.entrySet()) {
@@ -136,7 +137,6 @@ public class TechJobs {
                 // print out the asterisks, and a newline
 
                 System.out.println("*****");
-                System.out.println();
 
             }
         }

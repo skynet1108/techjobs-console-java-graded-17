@@ -75,8 +75,9 @@ public class JobData {
             String aValue = row.get(column);
 
 
+
             // tries to find the specified value in the current row (narrowed down to the specified column)
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
@@ -94,7 +95,6 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
-
         ArrayList<HashMap<String, String>> rowsWithValue = new ArrayList<>();
 
         // for each row (HashMap) in allJobs
@@ -106,7 +106,7 @@ public class JobData {
 
                 // if current row contains the value we're looking for, add row to return value, then break out
                 // of current iteration to search through next row
-                if (thisValue.contains(value)) {
+                if (thisValue.toUpperCase().contains(value.toUpperCase())) {
                     rowsWithValue.add(row);
                     break;
                 }
