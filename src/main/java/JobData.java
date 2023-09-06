@@ -60,7 +60,7 @@ public class JobData {
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
+     * @param column Column that should be searched.
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
@@ -72,9 +72,10 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
             String aValue = row.get(column);
 
+
+            // tries to find the specified value in the current row (narrowed down to the specified column)
             if (aValue.contains(value)) {
                 jobs.add(row);
             }
@@ -87,15 +88,32 @@ public class JobData {
      * Search all columns for the given term
      *
      * @param value The search term to look for
-     * @return      List of all jobs with at least one field containing the value
+     * @return List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> rowsWithValue = new ArrayList<>();
+
+        // for each row (HashMap) in allJobs
+            // check whether values() of the HashMap contains the value, if so, add the row to the variable
+            // rowsWithValue (ArrayList) then "continue" to avoid adding same row twice
+
+        for (HashMap<String, String> row : allJobs) {
+            for (String thisValue : row.values()) {
+
+                // if current row contains the value we're looking for, add row to return value, then break out
+                // of current iteration to search through next row
+                if (thisValue.contains(value)) {
+                    rowsWithValue.add(row);
+                    break;
+                }
+            }
+        }
+
+        return rowsWithValue;
     }
 
     /**
@@ -129,6 +147,8 @@ public class JobData {
 
                 allJobs.add(newJob);
             }
+
+//            System.out.println(allJobs);
 
             // flag the data as loaded, so we don't do it twice
             isDataLoaded = true;
